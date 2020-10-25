@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliotekaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Autorzy">
+    <Key>
+      <PropertyRef Name="idAutora" />
+    </Key>
+    <Property Name="idAutora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nazwisko" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dataUrodzenia" Type="DateTime" Precision="0" Nullable="false" />
+    <NavigationProperty Name="Ksiazki" Relationship="BibliotekaModel.FK_Ksiazki_Autorzy" FromRole="Autorzy" ToRole="Ksiazki" />
+  </EntityType>
+  <EntityType Name="Gatunki">
+    <Key>
+      <PropertyRef Name="idGatunku" />
+    </Key>
+    <Property Name="idGatunku" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="gatunek" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Ksiazki" Relationship="BibliotekaModel.FK__Ksiazki__idGatun__52593CB8" FromRole="Gatunki" ToRole="Ksiazki" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="idRoli" />
+    </Key>
+    <Property Name="idRoli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="rola" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Uzytkownicy" Relationship="Self.FK__Uzytkowni__idRol__4E88ABD4" FromRole="Role" ToRole="Uzytkownicy" />
+  </EntityType>
+  <EntityType Name="Statusy_Wypozyczen">
+    <Key>
+      <PropertyRef Name="idStatusu" />
+    </Key>
+    <Property Name="idStatusu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Wypozyczenia" Relationship="BibliotekaModel.FK__Wypozycze__idSta__29221CFB" FromRole="Statusy_Wypozyczen" ToRole="Wypozyczenia" />
+  </EntityType>
+  <EntityType Name="Uzytkownicy">
+    <Key>
+      <PropertyRef Name="idUzytkownika" />
+    </Key>
+    <Property Name="idUzytkownika" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="haslo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="imie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nazwisko" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="miasto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="kodPocztowy" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idRoli" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Uzytkowni__idRol__4E88ABD4" FromRole="Uzytkownicy" ToRole="Role" />
+    <Property Name="czyAktywny" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Wypozyczenia" Relationship="BibliotekaModel.FK__Wypozycze__idUzy__282DF8C2" FromRole="Uzytkownicy" ToRole="Wypozyczenia" />
+  </EntityType>
+  <Association Name="FK__Uzytkowni__idRol__4E88ABD4">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="idRoli" />
+      </Principal>
+      <Dependent Role="Uzytkownicy">
+        <PropertyRef Name="idRoli" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BibliotekaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Autorzy" EntityType="Self.Autorzy" />
+    <EntitySet Name="Gatunki" EntityType="Self.Gatunki" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Statusy_Wypozyczen" EntityType="Self.Statusy_Wypozyczen" />
+    <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" />
+    <AssociationSet Name="FK__Uzytkowni__idRol__4E88ABD4" Association="Self.FK__Uzytkowni__idRol__4E88ABD4">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+    </AssociationSet>
+    <EntitySet Name="Ksiazki" EntityType="BibliotekaModel.Ksiazki" />
+    <EntitySet Name="Wypozyczenia" EntityType="BibliotekaModel.Wypozyczenia" />
+    <AssociationSet Name="FK_Ksiazki_Autorzy" Association="BibliotekaModel.FK_Ksiazki_Autorzy">
+      <End Role="Autorzy" EntitySet="Autorzy" />
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ksiazki__idGatun__52593CB8" Association="BibliotekaModel.FK__Ksiazki__idGatun__52593CB8">
+      <End Role="Gatunki" EntitySet="Gatunki" />
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wypozycze__idKsi__2A164134" Association="BibliotekaModel.FK__Wypozycze__idKsi__2A164134">
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+      <End Role="Wypozyczenia" EntitySet="Wypozyczenia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wypozycze__idSta__29221CFB" Association="BibliotekaModel.FK__Wypozycze__idSta__29221CFB">
+      <End Role="Statusy_Wypozyczen" EntitySet="Statusy_Wypozyczen" />
+      <End Role="Wypozyczenia" EntitySet="Wypozyczenia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wypozycze__idUzy__282DF8C2" Association="BibliotekaModel.FK__Wypozycze__idUzy__282DF8C2">
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+      <End Role="Wypozyczenia" EntitySet="Wypozyczenia" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ksiazki">
+    <Key>
+      <PropertyRef Name="idKsiazki" />
+    </Key>
+    <Property Name="idKsiazki" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tytul" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="opis" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="iloscStron" Type="Int32" Nullable="false" />
+    <Property Name="dataWydania" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ilosc" Type="Int32" Nullable="false" />
+    <Property Name="idGatunku" Type="Int32" Nullable="false" />
+    <Property Name="idAutora" Type="Int32" Nullable="false" />
+    <Property Name="czyAktywna" Type="Boolean" />
+    <NavigationProperty Name="Autorzy" Relationship="BibliotekaModel.FK_Ksiazki_Autorzy" FromRole="Ksiazki" ToRole="Autorzy" />
+    <NavigationProperty Name="Gatunki" Relationship="BibliotekaModel.FK__Ksiazki__idGatun__52593CB8" FromRole="Ksiazki" ToRole="Gatunki" />
+    <NavigationProperty Name="Wypozyczenia" Relationship="BibliotekaModel.FK__Wypozycze__idKsi__2A164134" FromRole="Ksiazki" ToRole="Wypozyczenia" />
+  </EntityType>
+  <EntityType Name="Wypozyczenia">
+    <Key>
+      <PropertyRef Name="idWypozyczenia" />
+    </Key>
+    <Property Name="idWypozyczenia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="terminWypozyczenia" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="terminZwrotu" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="idUzytkownika" Type="Int32" />
+    <Property Name="idStatusu" Type="Int32" />
+    <Property Name="idKsiazki" Type="Int32" />
+    <NavigationProperty Name="Ksiazki" Relationship="BibliotekaModel.FK__Wypozycze__idKsi__2A164134" FromRole="Wypozyczenia" ToRole="Ksiazki" />
+    <NavigationProperty Name="Statusy_Wypozyczen" Relationship="BibliotekaModel.FK__Wypozycze__idSta__29221CFB" FromRole="Wypozyczenia" ToRole="Statusy_Wypozyczen" />
+    <NavigationProperty Name="Uzytkownicy" Relationship="BibliotekaModel.FK__Wypozycze__idUzy__282DF8C2" FromRole="Wypozyczenia" ToRole="Uzytkownicy" />
+  </EntityType>
+  <Association Name="FK_Ksiazki_Autorzy">
+    <End Type="BibliotekaModel.Autorzy" Role="Autorzy" Multiplicity="1" />
+    <End Type="BibliotekaModel.Ksiazki" Role="Ksiazki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autorzy">
+        <PropertyRef Name="idAutora" />
+      </Principal>
+      <Dependent Role="Ksiazki">
+        <PropertyRef Name="idAutora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ksiazki__idGatun__52593CB8">
+    <End Type="BibliotekaModel.Gatunki" Role="Gatunki" Multiplicity="1" />
+    <End Type="BibliotekaModel.Ksiazki" Role="Ksiazki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gatunki">
+        <PropertyRef Name="idGatunku" />
+      </Principal>
+      <Dependent Role="Ksiazki">
+        <PropertyRef Name="idGatunku" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wypozycze__idKsi__2A164134">
+    <End Type="BibliotekaModel.Ksiazki" Role="Ksiazki" Multiplicity="0..1" />
+    <End Type="BibliotekaModel.Wypozyczenia" Role="Wypozyczenia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ksiazki">
+        <PropertyRef Name="idKsiazki" />
+      </Principal>
+      <Dependent Role="Wypozyczenia">
+        <PropertyRef Name="idKsiazki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wypozycze__idSta__29221CFB">
+    <End Type="BibliotekaModel.Statusy_Wypozyczen" Role="Statusy_Wypozyczen" Multiplicity="0..1" />
+    <End Type="BibliotekaModel.Wypozyczenia" Role="Wypozyczenia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statusy_Wypozyczen">
+        <PropertyRef Name="idStatusu" />
+      </Principal>
+      <Dependent Role="Wypozyczenia">
+        <PropertyRef Name="idStatusu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wypozycze__idUzy__282DF8C2">
+    <End Type="BibliotekaModel.Uzytkownicy" Role="Uzytkownicy" Multiplicity="0..1" />
+    <End Type="BibliotekaModel.Wypozyczenia" Role="Wypozyczenia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uzytkownicy">
+        <PropertyRef Name="idUzytkownika" />
+      </Principal>
+      <Dependent Role="Wypozyczenia">
+        <PropertyRef Name="idUzytkownika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

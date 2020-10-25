@@ -1,0 +1,73 @@
+﻿@model InternetoweBazyDanych.Models.Book.DetailsBookViewModel
+
+<h3>Czy chcesz wypożyczyć tytuł?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tytul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tytul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.opis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iloscStron)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iloscStron)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataWydania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataWydania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ilosc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ilosc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gatunek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gatunek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autor)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Wypożycz" class="btn btn-default" /> |
+    @Html.ActionLink("Powrót do listy książek", "AllBooks", "User")
+</div>
+    }
+</div>

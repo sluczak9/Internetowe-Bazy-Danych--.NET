@@ -1,0 +1,74 @@
+﻿@model IEnumerable<InternetoweBazyDanych.Database.Ksiazki>
+
+<h2>Lista książek</h2>
+
+<p>
+    @using (Html.BeginForm("AllBooks", "User", FormMethod.Get))
+    {
+        <text>Nazwa: </text>@Html.TextBox("search")
+        <input type="submit" value="Szukaj" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tytul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.iloscStron)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dataWydania)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ilosc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autorzy.imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autorzy.nazwisko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gatunki.gatunek)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.tytul)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.opis)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.iloscStron)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.dataWydania)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ilosc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Autorzy.imie)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Autorzy.nazwisko)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Gatunki.gatunek)
+    </td>
+    <td>
+        @Html.ActionLink("Wypożycz", "BookDetails", new { id = item.idKsiazki })
+    </td>
+</tr>
+    }
+
+</table>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<InternetoweBazyDanych.Models.Book.Rental>
+
+<p>
+    <h3>Lista wypożyczonych pozycji</h3>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tytul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.autor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.terminWypozyczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.terminZwrotu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.tytul)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.autor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.terminWypozyczenia)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.terminZwrotu)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.status)
+    </td>
+    <td>
+        @Html.ActionLink("Zwróć", "ReturnBook", new { id = item.idWypozyczenia})
+    </td>
+</tr>
+}
+
+</table>

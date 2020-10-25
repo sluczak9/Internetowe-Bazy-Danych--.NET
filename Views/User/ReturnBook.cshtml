@@ -1,0 +1,67 @@
+﻿@model InternetoweBazyDanych.Models.Book.Rental
+
+<h3>Na pewno chcesz zwrócić tytuł?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tytul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tytul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gatunek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gatunek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.terminWypozyczenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.terminWypozyczenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.terminZwrotu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.terminZwrotu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+    </dl>
+    <h2>@ViewBag.Message</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Zwróć" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót do listy wypożyczonych", "RentalBooks")
+        </div>
+    }
+</div>
